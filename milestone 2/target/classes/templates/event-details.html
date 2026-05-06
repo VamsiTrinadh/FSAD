@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: html(title=${event.title}, content=~{::div.content})}">
+<body>
+    <div class="content container">
+        <div class="event-details-card">
+            
+            <div th:if="${successMessage}" class="alert alert-success">
+                <p th:text="${successMessage}"></p>
+            </div>
+            
+            <div class="event-header-info">
+                <span class="badge badge-primary" th:text="${event.eventType}">Workshop</span>
+                <span class="badge badge-secondary" th:text="${event.department}">Department</span>
+            </div>
+            
+            <h1 th:text="${event.title}" class="page-title">Event Title</h1>
+            
+            <div class="event-meta">
+                <div class="meta-item">
+                    <strong>Date:</strong> 
+                    <span th:text="${#temporals.format(event.eventDate, 'MMMM dd, yyyy')}">Date</span>
+                </div>
+                <div class="meta-item">
+                    <strong>Capacity:</strong> 
+                    <span th:text="${event.registrations.size()} + ' / ' + ${event.maxCapacity}">0 / 100</span>
+                </div>
+                <div class="meta-item">
+                    <strong>Location:</strong> 
+                    <span th:text="${event.location}">Venue</span>
+                </div>
+            </div>
+            
+            <div class="event-map" style="margin-bottom: 30px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+                <iframe width="100%" height="300" frameborder="0" style="border:0" 
+                        th:src="@{'https://maps.google.com/maps?q=' + ${event.location} + '&t=&z=15&ie=UTF8&iwloc=&output=embed'}" 
+                        allowfullscreen></iframe>
+            </div>
+            
+            <div class="event-description-full">
+                <h3>About this event</h3>
+                <p th:text="${event.description}">Description goes here.</p>
+            </div>
+            
+            <div class="registration-section">
+                <div th:if="${event.registrations.size() < event.maxCapacity}">
+                    <a th:href="@{/register/{id}(id=${event.id})}" class="btn btn-primary btn-large">Register Now</a>
+                </div>
+                <div th:if="${event.registrations.size() >= event.maxCapacity}" class="alert alert-warning">
+                    <p>This event is fully booked.</p>
+                </div>
+            </div>
+            
+            <div style="margin-top: 20px;">
+                <a href="/" class="btn btn-secondary">&larr; Back to Events</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

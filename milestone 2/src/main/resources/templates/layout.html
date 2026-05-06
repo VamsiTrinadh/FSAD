@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title != null ? title + ' - Smart Campus' : 'Smart Campus Events'}">Smart Campus</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">Smart Campus</a>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li sec:authorize="!isAuthenticated()"><a href="/login">Admin Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div th:replace="${content}"></div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 Smart Campus Event Management System. All rights reserved.</p>
+    </footer>
+</body>
+</html>

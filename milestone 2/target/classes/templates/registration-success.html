@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: html(title='Registration Successful', content=~{::div.content})}">
+<body>
+    <div class="content container">
+        <div class="event-details-card" style="text-align: center; max-width: 600px; margin: 0 auto;">
+            
+            <div class="alert alert-success" style="margin-bottom: 30px;">
+                <h3 style="margin: 0; color: #047857;">Registration Successful!</h3>
+                <p style="margin-top: 10px;">Your email has been verified and your spot is confirmed.</p>
+            </div>
+            
+            <h2>Your Digital Ticket</h2>
+            
+            <div style="background-color: #f3f4f6; padding: 30px; border-radius: 8px; margin: 20px 0; border: 2px dashed #cbd5e1;">
+                <h3 th:text="${registration.event.title}" style="margin-bottom: 5px; color: #1e293b;">Event Title</h3>
+                <p style="color: #64748b; margin-bottom: 20px;">
+                    <i class="icon-calendar"></i> <span th:text="${#temporals.format(registration.event.eventDate, 'MMMM dd, yyyy')}">Date</span>
+                </p>
+                
+                <!-- QR Code dynamically generated via API -->
+                <img th:src="@{https://api.qrserver.com/v1/create-qr-code/(size='200x200',data='RegistrationID:' + ${registration.id} + '-Event:' + ${registration.event.title} + '-Student:' + ${registration.studentName})}" 
+                     alt="Ticket QR Code" 
+                     style="margin: 20px 0; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); padding: 10px; background: white;">
+                     
+                <div style="text-align: left; margin-top: 20px; border-top: 1px solid #e2e8f0; padding-top: 20px;">
+                    <p><strong>Student Name:</strong> <span th:text="${registration.studentName}"></span></p>
+                    <p><strong>Student ID:</strong> <span th:text="${registration.studentId}"></span></p>
+                    <p><strong>Registration ID:</strong> <span th:text="${registration.id}"></span></p>
+                </div>
+            </div>
+            
+            <p style="color: #64748b; font-size: 0.9em; margin-bottom: 30px;">Please take a screenshot of this ticket to show at the event entrance.</p>
+            
+            <a href="/" class="btn btn-primary">Back to Events</a>
+        </div>
+    </div>
+</body>
+</html>

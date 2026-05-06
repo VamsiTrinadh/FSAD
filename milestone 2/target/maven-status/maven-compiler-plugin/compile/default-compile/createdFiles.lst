@@ -1,0 +1,12 @@
+com\campus\events\controller\RegistrationController.class
+com\campus\events\repository\RegistrationRepository.class
+com\campus\events\entity\Registration.class
+com\campus\events\entity\Event.class
+com\campus\events\controller\EventRestController.class
+com\campus\events\exception\GlobalExceptionHandler.class
+com\campus\events\service\RegistrationService.class
+com\campus\events\repository\EventRepository.class
+com\campus\events\controller\EventController.class
+com\campus\events\config\SecurityConfig.class
+com\campus\events\EventManagementApplication.class
+com\campus\events\service\EventService.class

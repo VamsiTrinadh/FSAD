@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: html(title='Register for ' + ${event.title}, content=~{::div.content})}">
+<body>
+    <div class="content container">
+        <div class="form-container">
+            <h2>Register for <span th:text="${event.title}">Event</span></h2>
+            
+            <div th:if="${errorMessage}" class="alert alert-danger">
+                <p th:text="${errorMessage}"></p>
+            </div>
+
+            <form th:action="@{/register/{id}(id=${event.id})}" th:object="${registration}" method="post" class="custom-form">
+                
+                <div class="form-group">
+                    <label for="studentName">Full Name</label>
+                    <input type="text" id="studentName" th:field="*{studentName}" class="form-control" placeholder="John Doe">
+                    <span class="error-text" th:if="${#fields.hasErrors('studentName')}" th:errors="*{studentName}"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="studentEmail">Email Address</label>
+                    <input type="email" id="studentEmail" th:field="*{studentEmail}" class="form-control" placeholder="john.doe@university.edu">
+                    <span class="error-text" th:if="${#fields.hasErrors('studentEmail')}" th:errors="*{studentEmail}"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="studentId">Student ID</label>
+                    <input type="text" id="studentId" th:field="*{studentId}" class="form-control" placeholder="S12345678">
+                    <span class="error-text" th:if="${#fields.hasErrors('studentId')}" th:errors="*{studentId}"></span>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Send OTP</button>
+                    <a th:href="@{/events/{id}(id=${event.id})}" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

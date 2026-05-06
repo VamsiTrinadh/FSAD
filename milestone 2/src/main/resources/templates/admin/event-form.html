@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{admin-layout :: html(title=${event.id == null ? 'Add Event' : 'Edit Event'}, content=~{::div.content})}">
+<body>
+    <div class="content container">
+        <div class="form-container" style="max-width: 800px;">
+            <h2 th:text="${event.id == null ? 'Create New Event' : 'Edit Event'}">Event Form</h2>
+            
+            <form th:action="@{/admin/event/save}" th:object="${event}" method="post" class="custom-form">
+                <input type="hidden" th:field="*{id}" />
+                
+                <div class="form-group">
+                    <label for="title">Event Title</label>
+                    <input type="text" id="title" th:field="*{title}" class="form-control" placeholder="Enter event title">
+                    <span class="error-text" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+                </div>
+
+                <div class="form-row" style="display: flex; gap: 20px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label for="eventDate">Event Date</label>
+                        <input type="date" id="eventDate" th:field="*{eventDate}" class="form-control">
+                        <span class="error-text" th:if="${#fields.hasErrors('eventDate')}" th:errors="*{eventDate}"></span>
+                    </div>
+
+                    <div class="form-group" style="flex: 1;">
+                        <label for="eventType">Event Type</label>
+                        <select id="eventType" th:field="*{eventType}" class="form-control">
+                            <option value="">Select Type</option>
+                            <option value="Workshop">Workshop</option>
+                            <option value="Seminar">Seminar</option>
+                            <option value="Conference">Conference</option>
+                            <option value="Guest Lecture">Guest Lecture</option>
+                        </select>
+                        <span class="error-text" th:if="${#fields.hasErrors('eventType')}" th:errors="*{eventType}"></span>
+                    </div>
+                </div>
+
+                <div class="form-row" style="display: flex; gap: 20px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label for="department">Department</label>
+                        <input type="text" id="department" th:field="*{department}" class="form-control" placeholder="e.g. Computer Science">
+                        <span class="error-text" th:if="${#fields.hasErrors('department')}" th:errors="*{department}"></span>
+                    </div>
+
+                    <div class="form-group" style="flex: 1;">
+                        <label for="maxCapacity">Maximum Capacity</label>
+                        <input type="number" id="maxCapacity" th:field="*{maxCapacity}" class="form-control" min="1">
+                        <span class="error-text" th:if="${#fields.hasErrors('maxCapacity')}" th:errors="*{maxCapacity}"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="location">Venue Location</label>
+                    <input type="text" id="location" th:field="*{location}" class="form-control" placeholder="e.g. Main Auditorium, Building B">
+                    <span class="error-text" th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" th:field="*{description}" class="form-control" rows="5" placeholder="Enter event details..."></textarea>
+                    <span class="error-text" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save Event</button>
+                    <a href="/admin/dashboard" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
